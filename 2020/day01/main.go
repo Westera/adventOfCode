@@ -29,7 +29,6 @@ func part1(expenses []int, target int) int{
 }
 
 func part2(expenses []int) int{
-	sort.Ints(expenses)
 	for pointer := 0 ; pointer < len(expenses) - 2 ; pointer++ {
 		pointerValue := expenses[pointer]
 		partialResult := part1(expenses[pointer + 1 : len(expenses) - 1], 2020 - pointerValue)
