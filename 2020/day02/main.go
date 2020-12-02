@@ -44,7 +44,7 @@ func validatePassword(minOccurrence int, maxOccurrence int, search string, passw
 }
 
 func validatePasswordV2(index1 int, index2 int, search string, password string) bool{
-	return (password[index1] == search[0] || password[index2] == search[0]) && !(password[index1] == search[0] && password[index2] == search[0])
+	return (password[index1] == search[0]) != (password[index2] == search[0])
 }
 
 func main() {
