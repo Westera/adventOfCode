@@ -40,24 +40,22 @@ func part2(boardingPasses []string) int{
 }
 
 func calculateSeatId(boardingPass string) int{
-	distanceRow, distanceColumn, minRow, maxRow, minCol, maxCol := 128, 8, 0, 127, 0, 7
+	distanceRow, distanceColumn, row, col := 128, 8, 0, 0
 	for _, char := range boardingPass {
 		switch char {
 		case 'F':
 			distanceRow /= 2
-			maxRow -= distanceRow
 		case 'B':
 			distanceRow /= 2
-			minRow += distanceRow
+			row += distanceRow
 		case 'L':
 			distanceColumn /= 2
-			maxCol -= distanceColumn
 		case 'R':
 			distanceColumn /= 2
-			minCol += distanceColumn
+			col += distanceColumn
 		}
 	}
-	return minRow * 8 + minCol
+	return row * 8 + col
 }
 
 func main() {
