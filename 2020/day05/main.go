@@ -6,6 +6,8 @@ import (
 	"log"
 	"os"
 	"sort"
+	"strconv"
+	"strings"
 )
 
 func part1(boardingPasses []string) int{
@@ -40,22 +42,11 @@ func part2(boardingPasses []string) int{
 }
 
 func calculateSeatId(boardingPass string) int{
-	distanceRow, distanceColumn, row, col := 128, 8, 0, 0
-	for _, char := range boardingPass {
-		switch char {
-		case 'F':
-			distanceRow /= 2
-		case 'B':
-			distanceRow /= 2
-			row += distanceRow
-		case 'L':
-			distanceColumn /= 2
-		case 'R':
-			distanceColumn /= 2
-			col += distanceColumn
-		}
-	}
-	return row * 8 + col
+	replacer := strings.NewReplacer("F", "0", "B", "1", "L", "0", "R", "1")
+	binaryBoardingPass := replacer.Replace(boardingPass)
+	row, _ := strconv.ParseInt(binaryBoardingPass[0:7], 2, 16)
+	col, _ := strconv.ParseInt(binaryBoardingPass[7:], 2, 16)
+	return int(row * 8 + col)
 }
 
 func main() {
