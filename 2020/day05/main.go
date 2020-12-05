@@ -22,7 +22,7 @@ func part1(boardingPasses []string) int{
 }
 
 func part2(boardingPasses []string) int{
-	seatIds := []int{}
+	seatIds := []int{len(boardingPasses)}
 	for _, boardingPass := range boardingPasses {
 		seatId := calculateSeatId(boardingPass)
 		seatIds = append(seatIds, seatId)
