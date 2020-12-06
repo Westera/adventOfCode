@@ -1,7 +1,7 @@
 package main
 
 import (
-	"adventOfCode/2020/util"
+	"adventOfCode/util"
 	"fmt"
 	"log"
 	"os"
@@ -20,9 +20,9 @@ type Passport struct {
 	pid bool
 }
 
-func part1(batchPassports []string, shouldValidate bool) int{
+func part1(batchPassports []string, shouldValidate bool) int {
 	nrOfValid := 0
-	rowRegexp := regexp.MustCompile(" |:")
+	rowRegexp := regexp.MustCompile("[ :]")
 	passport := newPassport()
 	for _, passportRow := range batchPassports {
 		if passportRow == "" {
@@ -32,7 +32,7 @@ func part1(batchPassports []string, shouldValidate bool) int{
 			passport = newPassport()
 		} else {
 			passportData := rowRegexp.Split(passportRow, -1)
-			for i := 0 ; i < len(passportData) ; i = i + 2 {
+			for i := 0; i < len(passportData); i = i + 2 {
 				passport = validatePassportData(passport, passportData[i], passportData[i+1], shouldValidate)
 			}
 		}
@@ -44,11 +44,11 @@ func part1(batchPassports []string, shouldValidate bool) int{
 	return nrOfValid
 }
 
-func part2(batchPassports []string) int{
+func part2(batchPassports []string) int {
 	return part1(batchPassports, true)
 }
 
-func newPassport () Passport{
+func newPassport() Passport {
 	return Passport{
 		byr: false,
 		iyr: false,
@@ -60,7 +60,7 @@ func newPassport () Passport{
 	}
 }
 
-func validatePassportData(passport Passport, field string, data string, shouldValidate bool) Passport{
+func validatePassportData(passport Passport, field string, data string, shouldValidate bool) Passport {
 	hairColorValidator := regexp.MustCompile("^#[[:xdigit:]]{6}$")
 	eyeColorOptions := "amb blu brn gry grn hzl oth"
 	pidValidator := regexp.MustCompile("^[0-9]{9}$")
@@ -77,7 +77,7 @@ func validatePassportData(passport Passport, field string, data string, shouldVa
 		passport.eyr = !shouldValidate || (2020 <= converted && converted <= 2030)
 	case "hgt":
 		if shouldValidate {
-			unit := data[len(data) - 2 :]
+			unit := data[len(data)-2:]
 			if unit == "cm" {
 				height, err := strconv.Atoi(data[0:3])
 				if err == nil {
@@ -102,12 +102,12 @@ func validatePassportData(passport Passport, field string, data string, shouldVa
 	return passport
 }
 
-func isValidPassport(passport Passport) bool{
+func isValidPassport(passport Passport) bool {
 	return passport.byr && passport.iyr && passport.eyr && passport.hgt && passport.hcl && passport.ecl && passport.pid
 }
 
 func main() {
-	file, err := os.Open("input.txt")
+	file, err := os.Open("2020/day04/input.txt")
 
 	if err != nil {
 		log.Fatal(err)

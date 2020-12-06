@@ -1,7 +1,7 @@
 package main
 
 import (
-	"adventOfCode/2020/util"
+	"adventOfCode/util"
 	"fmt"
 	"log"
 	"os"
@@ -10,45 +10,45 @@ import (
 	"strings"
 )
 
-func part1(passwords []string) int{
+func part1(passwords []string) int {
 	valid := 0
-	rowRegexp := regexp.MustCompile(" |-|:")
+	rowRegexp := regexp.MustCompile("[ \\-:]")
 	for _, password := range passwords {
 		splitPassword := rowRegexp.Split(password, -1)
 		min, _ := strconv.Atoi(splitPassword[0])
 		max, _ := strconv.Atoi(splitPassword[1])
-		if(validatePassword(min, max, splitPassword[2], splitPassword[4])) {
+		if validatePassword(min, max, splitPassword[2], splitPassword[4]) {
 			valid++
 		}
 	}
 	return valid
 }
 
-func part2(passwords []string) int{
+func part2(passwords []string) int {
 	valid := 0
 	rowRegexp := regexp.MustCompile(" |-|:")
 	for _, password := range passwords {
 		splitPassword := rowRegexp.Split(password, -1)
 		index1, _ := strconv.Atoi(splitPassword[0])
 		index2, _ := strconv.Atoi(splitPassword[1])
-		if(validatePasswordV2(index1 - 1, index2 - 1, splitPassword[2], splitPassword[4])) {
+		if validatePasswordV2(index1-1, index2-1, splitPassword[2], splitPassword[4]) {
 			valid++
 		}
 	}
 	return valid
 }
 
-func validatePassword(minOccurrence int, maxOccurrence int, search string, password string) bool{
+func validatePassword(minOccurrence int, maxOccurrence int, search string, password string) bool {
 	occurrence := strings.Count(password, search)
 	return minOccurrence <= occurrence && occurrence <= maxOccurrence
 }
 
-func validatePasswordV2(index1 int, index2 int, search string, password string) bool{
+func validatePasswordV2(index1 int, index2 int, search string, password string) bool {
 	return (password[index1] == search[0]) != (password[index2] == search[0])
 }
 
 func main() {
-	file, err := os.Open("input.txt")
+	file, err := os.Open("2020/day02/input.txt")
 
 	if err != nil {
 		log.Fatal(err)

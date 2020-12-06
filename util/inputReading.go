@@ -3,6 +3,8 @@ package util
 import (
 	"bufio"
 	"io"
+	"io/ioutil"
+	"log"
 	"strconv"
 )
 
@@ -27,4 +29,16 @@ func ReadToArray(r io.Reader) ([]string, error) {
 		lines = append(lines, scanner.Text())
 	}
 	return lines, scanner.Err()
+}
+
+func ReadToString(r io.Reader) (string, error) {
+	content, err := ioutil.ReadAll(r)
+	if err != nil {
+		log.Fatal(err)
+		return "", err
+	}
+
+	// Convert []byte to string and print to screen
+	text := string(content)
+	return text, nil
 }

@@ -1,16 +1,16 @@
 package main
 
 import (
-	"adventOfCode/2020/util"
+	"adventOfCode/util"
 	"fmt"
 	"log"
 	"os"
 	"sort"
 )
 
-func part1(expenses []int, target int) int{
+func part1(expenses []int, target int) int {
 	sort.Ints(expenses)
-	pointerLow, pointerHight := 0, len(expenses) - 1
+	pointerLow, pointerHight := 0, len(expenses)-1
 	sum := expenses[pointerLow] + expenses[pointerHight]
 
 	for sum != target {
@@ -25,13 +25,13 @@ func part1(expenses []int, target int) int{
 		sum = expenses[pointerLow] + expenses[pointerHight]
 	}
 
-	return expenses[pointerLow] * expenses [pointerHight]
+	return expenses[pointerLow] * expenses[pointerHight]
 }
 
-func part2(expenses []int) int{
-	for pointer := 0 ; pointer < len(expenses) - 2 ; pointer++ {
+func part2(expenses []int) int {
+	for pointer := 0; pointer < len(expenses)-2; pointer++ {
 		pointerValue := expenses[pointer]
-		partialResult := part1(expenses[pointer + 1 : len(expenses) - 1], 2020 - pointerValue)
+		partialResult := part1(expenses[pointer+1:len(expenses)-1], 2020-pointerValue)
 		if partialResult != -1 {
 			return partialResult * pointerValue
 		}
@@ -40,7 +40,7 @@ func part2(expenses []int) int{
 }
 
 func main() {
-	file, err := os.Open("input.txt")
+	file, err := os.Open("2020/day01/input.txt")
 
 	if err != nil {
 		log.Fatal(err)
