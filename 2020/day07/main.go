@@ -47,7 +47,7 @@ func part2(bagRules []string, target string) int {
 			}
 		}
 	}
-	return howManyBagsToBring(whatIsInWhatMap, "shiny gold")
+	return howManyBagsToBring(whatIsInWhatMap, target)
 }
 
 func findNumberOfBags(whatCanBeInWhatMap map[string][]string, whatHasBeenSeen map[string]bool, target string) int{
